@@ -76,6 +76,10 @@
 %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[style=authoryear]{biblatex} 
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
@@ -83,55 +87,57 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Short title]{Full Title of the Talk} % The short title appears at the bottom of every slide, the full title is only on the title page
+% The short title appears at the bottom of every slide, the full title is only on the title page
+\title[DQN-routing]{Глубокие самообучающиеся агенты в мультиагентной системе маршрутизации} 
 
-\author{John Smith} % Your name
-\institute[UCLA] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\author[Дмитрий Мухутдинов, М3438]{
+    Мухутдинов Дмитрий, группа M3438 \\
+    Научный руководитель: Фильченков А. А., к.ф-м.н., доцент кафедры КТ \\
+    Рецензент: Тарасов В. Б., к.т.н., МГТУ им. Баумана
+}% Your name
+\institute[ИТМО] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-University of California \\ % Your institution for the title page
-\medskip
-\textit{john@smith.com} % Your email address
+    Кафедра Компьютерных Технологий \\
+    Факультет Информационных Технологий и Программирования \\
+    Университет ИТМО, Санкт-Петербург
 }
 \date{\today} % Date, can be changed to a custom date
 
 \begin{document}
 
-\begin{frame}
-\titlepage % Print the title page as the first slide
-\end{frame}
-
-\begin{frame}
-\frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
-\end{frame}
+\frame{\titlepage}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
-%------------------------------------------------
-\section{First Section} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
-%------------------------------------------------
+\section{First Section} 
 
 \subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
-\frametitle{Paragraphs of Text}
-Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
-
-Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat ullamcorper id.
+\frametitle{Задача маршрутизации}
+\begin{itemize}
+\item Сетевой роутинг
+\item Транспортная логистика
+\item Управление конвейерными системами
+\item Автоматическое управление городским трафиком
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Bullet Points}
+\frametitle{Существующие решения}
 \begin{itemize}
-\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-\item Nam cursus est eget velit posuere pellentesque
-\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+\item Link-state
+    \begin{itemize}
+    \item Open Shortest Path First (OSPF)
+    \item IS-IS
+    \end{itemize}
+\item Distance-vector
+\item Прочие
+
 \end{itemize}
 \end{frame}
 
