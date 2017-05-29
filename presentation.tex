@@ -103,6 +103,8 @@
 }
 \date{\today} % Date, can be changed to a custom date
 
+\graphicspath{{img/}}
+
 \begin{document}
 
 \frame{\titlepage}
@@ -182,5 +184,108 @@
 \end{frame}
 
 %------------------------------------------------
+
+\begin{frame}
+  \frametitle{Постановка задачи в терминах RL}
+  \begin{itemize}
+    \item Рассмотрим \textit{пакет} в сети как обучающегося агента,
+      взаимодействующего с сетью как со средой
+    \item Полное состояние среды неизвестно, состояние текущего роутера ---
+      \textit{наблюдение} пакета
+    \item Действие --- переход к одному из соседей
+    \item Q-learning:
+      \[
+      Q(o_t, a_t) \leftarrow r_t + \gamma \cdot
+      \max\limits_{a \in \mathcal{A}_{o_{t+1}}} {Q(o_{t+1}, a)}
+      \]
+    \item Принцип аналогичный Q-routing:
+      \[
+      Q_x(d, y) \leftarrow (t_{finish} - t_{start}) +
+      \max\limits_{z \in \{ V | (y, z) \in E\}} {Q_y(d, z)}
+      \]
+  \end{itemize}
+\end{frame}
+
+%-------------------------------------------------
+
+\begin{frame}
+  \frametitle{Базовая архитектура нейросети}
+  Вход нейросети $o = (d, s, y_1 ... y_n, o')$, где:
+  \begin{itemize}
+  \item $d$ --- узел назначения, $s$ --- текущий узел, $y_1 ... y_n$ --- номера
+    соседей, $o'$ --- любая дополнительная информация
+  \item Выходы нейросети $a_1 ... a_n$ --- оценки $Q(o, a)$ для всех узлов сети
+    ($-\infty$ для узлов, не являющихся соседями)
+  \item Кодируем номера унитарным кодом, чтобы избежать корреляции результатов
+  \item Используем RMSProp для оптимизации
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+
+\begin{frame}
+  \frametitle{Базовая архитектура нейросети}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{pic-nn-1}
+      \end{center}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+        Пример сети для работы в графе из 5 вершин
+        \includegraphics[width=0.5\textwidth]{graph-1}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%---------------------------------------------------
+
+\begin{frame}
+  \frametitle{Проблема нестационарности}
+  \begin{itemize}
+    \item Q-обучение, вообще говоря, не сходится к оптимальному решению в случае
+      бесконечного числа состояний
+    \item Другие агенты меняют свое поведение --- среда нестационарна,
+      вследствие чего experience replay (Mnih et al., 2015) не работает
+    \item При обучении с нуля на равномерной низкой нагрузке нейросети не могут
+      найти оптимальные пути
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------------------
+
+\begin{frame}
+  \frametitle{Проблема нестационарности}
+  \includegraphics[width=\textwidth]{non-convergence}
+\end{frame}
+
+%---------------------------------------------------
+
+\begin{frame}
+  \frametitle{Решение проблемы нестационарности}
+  \begin{itemize}
+  \item Предобучение сети (bootstrapping)
+    \begin{itemize}
+      \item Собираем данные работы алгоритма кратчайших путей
+      \item Обучаем одну нейросеть на данных от всех роутеров
+      \item Предобученная сеть повторяет работу алгоритма кратчайших путей
+    \end{itemize}
+  \item Отказ от experience replay во время работы
+    \begin{itemize}
+    \item Условия работы в сети меняются
+    \item Старый опыт перестает быть актуальным
+    \item Если обращать на него внимание, адаптивность к изменяющимся условиям страдает
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------------------
+
+\begin{frame}
+  \frametitle{Расширение наблюдаемого состояния}
+  
+\end{frame}
 
 \end{document} 
