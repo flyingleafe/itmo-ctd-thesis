@@ -1,16 +1,21 @@
 digraph basic_nn {
-node [shape=none]; 
-    
-    d_input [label=<<table border="0" cellspacing="0" cellborder="1" cellpadding="5">
-                      <tr border="0">
+  node [shape="plaintext"]
+  d_label [label="d = 5"]
+  s_label [label="s = 1"]
+  y_label [label="y = {2, 3}"]
+
+  node [shape=none];
+  d_input [label=<<table border="0" cellspacing="0" cellborder="1" cellpadding="5">
+                     <tr border="0">
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>1</td>
                       </tr>
-                  </table>>];
-    s_input [label=<<table border="0" cellspacing="0"  cellpadding="5">
+                   </table>>,
+                   ];
+  s_input [label=<<table border="0" cellspacing="0"  cellpadding="5">
                       <tr border="0">
                         <td border="1">1</td>
                         <td border="1">0</td>
@@ -19,7 +24,7 @@ node [shape=none];
                         <td border="1">0</td>
                       </tr>
                   </table>>]; 
-    y_input [label=<<table border="0" cellspacing="0" cellpadding="5">
+  y_input [label=<<table border="0" cellspacing="0" cellpadding="5">
                       <tr border="0">
                         <td border="1">0</td>
                         <td border="1">1</td>
@@ -27,20 +32,20 @@ node [shape=none];
                         <td border="1">0</td>
                         <td border="1">0</td>
                       </tr>
-                  </table>>];
+                      </table>>];
+
+  subgraph {
+    {rank=same; d_input, s_input, y_input} 
+  }
+
+  node [shape="box"]
+  layer_1 [label="fully-connected, 64 units"];
+  layer_2 [label="fully-connected, 64 units"];
+  layer_3 [label="fully-connected, 5 units"];
+
+  sum [shape="circle", label="+"]
     
-    subgraph {
-      {rank=same; d_input, s_input, y_input} 
-    }
-
-node [shape="box"]
-    layer_1 [label="fully-connected, 64 units"];
-    layer_2 [label="fully-connected, 64 units"];
-    layer_3 [label="fully-connected, 5 units"];
-
-    sum [shape="circle", label="+"]
-
-    output [shape=none, label=<<table border="0" cellspacing="0" cellpadding="5">
+  output [shape=none, label=<<table border="0" cellspacing="0" cellpadding="5">
                       <tr border="0">
                         <td border="1">-∞</td>
                         <td border="1">q<SUB>2</SUB></td>
@@ -50,18 +55,22 @@ node [shape="box"]
                       </tr>
                   </table>>];
 
-    d_input -> layer_1
-    s_input -> layer_1
-    y_input -> layer_1
+  d_label -> d_input
+  s_label -> s_input
+  y_label -> y_input
 
-    y_input -> sum [label="  if y = 0 then -∞ else 0", constraint=false]
+  d_input -> layer_1
+  s_input -> layer_1
+  y_input -> layer_1
 
-    layer_1 -> layer_2 [label="  ReLU"]
-    layer_2 -> layer_3 [label="  ReLU"]
-    layer_3 -> sum [label="  linear"]
+  y_input -> sum [label="  if y = 0 then -∞ else 0", constraint=false]
+
+  layer_1 -> layer_2 [label="  ReLU"]
+  layer_2 -> layer_3 [label="  ReLU"]
+  layer_3 -> sum [label="  linear"]
     
-    sum -> output
+  sum -> output
 
-edge [style="invis"]
-    d_input -> s_input -> y_input
+  edge [style="invis"]
+  d_input -> s_input -> y_input
 }
