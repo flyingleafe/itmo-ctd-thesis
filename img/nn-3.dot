@@ -4,7 +4,7 @@ digraph lstm_nn {
   d_label [label="d = 5"]
   s_label [label="s = 1"]
   y_label [label="y = {2, 3}"]
-  A_label [label=<A<SUB>g</SUB>>]
+  // A_label [label=<A<SUB>g</SUB>>]
 
 node [shape=none];
 
@@ -36,35 +36,37 @@ node [shape=none];
                       </tr>
                   </table>>];
 
-    A_input [label=<<table border="0" cellspacing="0" cellpadding="5">
-                      <tr border="0">
-                        <td border="1">1</td>
-                        <td border="1">1</td>
-                        <td border="1">0</td>
-                        <td border="1">0</td>
-                      </tr>
-                      <tr border="0">
-                        <td border="0"></td>
-                        <td border="1">1</td>
-                        <td border="1">1</td>
-                        <td border="1">0</td>
-                      </tr>
-                      <tr border="0">
-                        <td border="0"></td>
-                        <td border="0"></td>
-                        <td border="1">1</td>
-                        <td border="1">1</td>
-                      </tr>
-                      <tr border="0">
-                        <td border="0"></td>
-                        <td border="0"></td>
-                        <td border="0"></td>
-                        <td border="1">1</td>
-                      </tr>
-                    </table>>];
+    // A_input [label=<<table border="0" cellspacing="0" cellpadding="5">
+    //                   <tr border="0">
+    //                     <td border="1">1</td>
+    //                     <td border="1">1</td>
+    //                     <td border="1">0</td>
+    //                     <td border="1">0</td>
+    //                   </tr>
+    //                   <tr border="0">
+    //                     <td border="0"></td>
+    //                     <td border="1">1</td>
+    //                     <td border="1">1</td>
+    //                     <td border="1">0</td>
+    //                   </tr>
+    //                   <tr border="0">
+    //                     <td border="0"></td>
+    //                     <td border="0"></td>
+    //                     <td border="1">1</td>
+    //                     <td border="1">1</td>
+    //                   </tr>
+    //                   <tr border="0">
+    //                     <td border="0"></td>
+    //                     <td border="0"></td>
+    //                     <td border="0"></td>
+    //                     <td border="1">1</td>
+    //                   </tr>
+    //                 </table>>];
 
     subgraph {
-      {rank=same; d_input, s_input, y_input, A_input}
+      {rank=same; d_input, s_input, y_input
+        // A_input
+      }
     }
 
 node [shape="box"]
@@ -87,19 +89,19 @@ node [shape="box"]
     d_label -> d_input
     s_label -> s_input
     y_label -> y_input
-    A_label -> A_input
+    // A_label -> A_input
 
     d_input -> layer_1
     s_input -> layer_1
     y_input -> layer_1
-    A_input -> layer_1
+    // A_input -> layer_1
 
     y_input -> sum [label="  if y = 0 then -∞ else 0", constraint=false]
 
     layer_1 -> layer_2 [label="  tanh"]
     layer_2 -> layer_3 [label="  tanh"]
     layer_3 -> sum [label="  linear"]
-    layer_2 -> layer_2
+    layer_2 -> layer_2 [label=< C<SUB>t-1</SUB>, h<SUB>t-1</SUB>>]
 
     sum -> output
 
