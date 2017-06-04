@@ -2,7 +2,7 @@ digraph lstm_nn {
   node [shape="plaintext"]
 
   d_label [label="d = 5"]
-  s_label [label="s = 1"]
+  s_label [label="n = 1"]
   y_label [label="y = {2, 3}"]
   // A_label [label=<A<SUB>g</SUB>>]
 

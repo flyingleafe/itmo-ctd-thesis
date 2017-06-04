@@ -25,7 +25,8 @@ with import <nixpkgs> {}; {
           paratype
           was
           filecontents
-	  cm-super;
+	  cm-super
+          subfigure;
       })
       biber
       graphviz

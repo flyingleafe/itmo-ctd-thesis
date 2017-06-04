@@ -2,7 +2,7 @@ digraph basic_nn {
   node [shape="plaintext"]
 
   d_label [label="d = 5"]
-  s_label [label="s = 1"]
+  s_label [label="n = 1"]
   y_label [label="y = {2, 3}"]
   A_label [label=<A<SUB>g</SUB>>]
 
@@ -96,8 +96,8 @@ node [shape="box"]
 
     y_input -> sum [label="  if y = 0 then -∞ else 0", constraint=false]
 
-    layer_1 -> layer_2 [label="  ReLU"]
-    layer_2 -> layer_3 [label="  ReLU"]
+    layer_1 -> layer_2 [label="  tanh"]
+    layer_2 -> layer_3 [label="  tanh"]
     layer_3 -> sum [label="  linear"]
     
     sum -> output
