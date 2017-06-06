@@ -83,6 +83,9 @@
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\argmax}{argmax}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -210,7 +213,7 @@
 
 \begin{frame}
   \frametitle{Базовая архитектура нейросети}
-  Вход нейросети $o = (d, s, y_1 ... y_n, o')$, где:
+  Вход нейросети $o = (d, n, y_1 ... y_n, o')$, где:
   \begin{itemize}
   \item $d$ --- узел назначения, $s$ --- текущий узел, $y_1 ... y_n$ --- номера
     соседей, $o'$ --- любая дополнительная информация
@@ -224,17 +227,25 @@
 %--------------------------------------------------
 
 \begin{frame}
-  \frametitle{Базовая архитектура нейросети}
+  \frametitle{Варианты архитектуры нейросети}
+  \fontsize{6pt}{7.2}\selectfont
   \begin{columns}
-    \begin{column}{0.6\textwidth}
+    \begin{column}{0.3\textwidth}
+      Feed-forward
       \begin{center}
-        \includegraphics[width=\textwidth]{pic-nn-1}
+        \includegraphics[width=\textwidth]{nn-1}
       \end{center}
     \end{column}
-    \begin{column}{0.4\textwidth}
+    \begin{column}{0.3\textwidth}
+      LSTM с ``памятью роутера''
       \begin{center}
-        Пример сети для работы в графе из 5 вершин
-        \includegraphics[width=0.5\textwidth]{graph-1}
+        \includegraphics[width=\textwidth]{nn-3}
+      \end{center}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      LSTM c ``памятью пакета''
+      \begin{center}
+        \includegraphics[width=\textwidth]{nn-4-final}
       \end{center}
     \end{column}
   \end{columns}
@@ -285,7 +296,184 @@
 
 \begin{frame}
   \frametitle{Расширение наблюдаемого состояния}
-  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      Добавим на вход дополнительную информацию
+      \begin{itemize}
+      \item Топологию сети полезно учитывать
+      \item Используем link-state протокол для обновления информации о топологии
+      \item Подаем матрицу смежности графа на вход
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{nn-2}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%-----------------------------------------------------
+
+\begin{frame}
+  \frametitle{Компромисс между исследованием и использованием}
+  \begin{itemize}
+  \item Алгоритм может застревать в локальном максимуме
+  \item Сложности к возвращению к оптимальной стратегии после изменений условий среды
+  \item Решение: используем softmax-стратегию, чтобы иметь шанс выбрать не максимально ``выгодное'' действие:
+    \[
+    \sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^K {e^{z_k}}} \; \; \mathrm{for} \; \; j
+    = 1 \; .. \; K
+    \]
+    \[
+    P(a \; | \; o) = \sigma(Q(o, a)) 
+    \]
+  \end{itemize}
+\end{frame}
+
+%-----------------------------------------------------
+
+\begin{frame}
+  \frametitle{Эксперименты в модели компьютерной сети}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+      \item Запуск экспериментов в симуляторе
+      \item Сравнение архитектур между собой и сравнение с алгоритмами link-state и Q-routing
+      \item Служебные сообщения доставляются бесплатно
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+        \includegraphics[width=0.7\textwidth]{graph-2}
+
+        Топология сети для тестов
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Изменение топологии сети: сравнение архитектур нейросетей}
+  \includegraphics[width=\textwidth]{experiment-link-failures-networks} 
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Изменение топологии сети: сравнение с link-state и Q-routing}
+  \includegraphics[width=\textwidth]{experiment-link-failures} 
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Изменение нагрузки: сравнение c архитектур нейросетей}
+  \includegraphics[width=\textwidth]{experiment-rnn-comparison} 
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Изменение нагрузки: сравнение c link-state и Q-routing}
+  \includegraphics[width=\textwidth]{experiment-peak-load} 
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Эксперименты в модели системы багажных конвейеров}
+  \begin{columns}
+    \begin{column}{0.5\textwidth} 
+      \begin{itemize}
+      \item Конвейерная сеть моделируется как ориентированный граф
+      \item Каждая секция конвейера -- отдельная вершина
+      \item Отдельно выделены входные и выходные вершины
+      \item В оптизируемую функцию включено \textit{энергопотребление}
+      \item Важность экономии энергии регулируется параметром $\alpha$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{belt-illustration}  
+
+      Участок конвейерной сети и соответствующий участок графа
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Модель конвейерной системы для проведения экспериментов}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{test-conveyors} 
+  \end{center}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Неравномерный поток до выходных вершин: сравнение архитектур нейросетей}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time-nns}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy-nns}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Неравномерный поток до выходных вершин: сравнение c link-state и Q-routing}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Плавное повышение нагрузки: $\alpha = 1$}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a1-time}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a1-energy}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Плавное повышение нагрузки: $\alpha = 0.6$}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a06-time}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a06-energy}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%-------------------------------------------------------
+
+\begin{frame}
+  \begin{center}
+    {\Huge Спасибо за внимание!}
+  \end{center}
 \end{frame}
 
 \end{document} 
