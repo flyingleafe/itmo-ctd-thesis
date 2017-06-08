@@ -14,8 +14,8 @@
 %% Данные пакеты необязательны к использованию в бакалаврских/магистерских
 %% Они нужны для иллюстративных целей
 %% Начало
-\usepackage{tikz}
-\usetikzlibrary{arrows}
+%% \usepackage{tikz}
+%% \usetikzlibrary{arrows}
 \usepackage{filecontents}
 \begin{filecontents}{thesis.bib}
 @article{ vyatkin-controllers,
@@ -70,11 +70,12 @@
 }
 
 @phdthesis{ q-learning-orig,
-    title    = {Learning from Delayed Rewards},
-    school   = {King's College},
-    address  = {Cambridge},
-    author   = {Watking, C.},
-    year     = {1989}
+  title    = {Learning from Delayed Rewards},
+  school   = {King's College},
+  address  = {Cambridge},
+  author   = {Watking, C.},
+  year     = {1989},
+  langid   = {english} 
 }
 
 @article{ link-state-arpanet,
@@ -84,7 +85,8 @@
   volume      = {28},
   number      = {5},
   year        = {1980},
-  pages       = {711–719}
+  pages       = {711–719},
+  langid      = {english}
 }
 
 @article{ arpanet-orig,
@@ -94,7 +96,8 @@
   volume      = {1},
   number      = {5},
   year        = {1977},
-  pages       = {243-289}
+  pages       = {243-289},
+  langid      = {english}
 }
 
 @techreport{ rip-rfc,
@@ -104,6 +107,7 @@
   NUMBER = {1058},
   YEAR = {1988},
   MONTH = {June},
+  langid = {english}
 }
 
 @techreport{ ospf-rfc,
@@ -113,6 +117,7 @@
   NUMBER = 1058,
   YEAR = {1998},
   MONTH = {April},
+  langid = {english}
 }
 
 @misc{ igrp-patent,
@@ -122,7 +127,8 @@
   year={1992},
   month=feb # "~11",
   publisher={Google Patents},
-  note={US Patent 5,088,032}
+  note={US Patent 5,088,032},
+  langid      = {english}
 }
 
 @article{ bellman-ford,
@@ -131,7 +137,8 @@
   journal = {Quarterly of Applied Mathematics},
   number = {16},
   year = {1958},
-  pages = {87-90}
+  pages = {87-90},
+  langid = {english}
 }
 
 @article{ dijkstra,
@@ -140,7 +147,8 @@
   journal = {Numerische Mathematik},
   number = {1},
   year = {1959},
-  pages = {269-271}
+  pages = {269-271},
+  langid = {english}
 }
 
 @article{ ali-nn-routing,
@@ -151,7 +159,8 @@
   volume ={4},
   number = {6},
   year = {1993},
-  pages = {941-953}
+  pages = {941-953},
+  langid = {english}
 }
 
 @article{araujo2001neural,
@@ -162,7 +171,8 @@
   number={5},
   pages={1067--1073},
   year={2001},
-  publisher={IEEE}
+  publisher={IEEE},
+  langid = {english}
 }
 
 @article{di1998antnet,
@@ -171,7 +181,8 @@
   journal={Journal of Artificial Intelligence Research},
   volume={9},
   pages={317--365},
-  year={1998}
+  year={1998},
+  langid = {english}
 }
 
 @inproceedings{tan1993multi,
@@ -179,21 +190,24 @@
   author={Tan, Ming},
   booktitle={Proceedings of the tenth international conference on machine learning},
   pages={330--337},
-  year={1993}
+  year={1993},
+  langid = {english}
 }
 
 @article{zeiler2012adadelta,
   title={ADADELTA: an adaptive learning rate method},
   author={Zeiler, Matthew D},
   journal={arXiv preprint arXiv:1212.5701},
-  year={2012}
+  year={2012},
+  langid = {english}
 }
 
 @article{kingma2014adam,
   title={Adam: A method for stochastic optimization},
   author={Kingma, Diederik and Ba, Jimmy},
   journal={arXiv preprint arXiv:1412.6980},
-  year={2014}
+  year={2014},
+  langid = {english}
 }
 
 @article{duchi2011adaptive,
@@ -203,7 +217,8 @@
   volume={12},
   number={Jul},
   pages={2121--2159},
-  year={2011}
+  year={2011},
+  langid = {english}
 }
 
 @article{tieleman2012lecture,
@@ -212,14 +227,16 @@
   journal={COURSERA: Neural networks for machine learning},
   volume={4},
   number={2},
-  year={2012}
+  year={2012},
+  langid = {english}
 }
 
 @article{schaul2015prioritized,
   title={Prioritized experience replay},
   author={Schaul, Tom and Quan, John and Antonoglou, Ioannis and Silver, David},
   journal={arXiv preprint arXiv:1511.05952},
-  year={2015}
+  year={2015},
+  langid = {english}
 }
 
 @inproceedings{hasselt2010double,
@@ -227,7 +244,8 @@
   author={Hasselt, Hado V},
   booktitle={Advances in Neural Information Processing Systems},
   pages={2613--2621},
-  year={2010}
+  year={2010},
+  langid      = {english}
 }
 
 @inproceedings{van2016deep,
@@ -235,28 +253,32 @@
   author={Van Hasselt, Hado and Guez, Arthur and Silver, David},
   booktitle={AAAI},
   pages={2094--2100},
-  year={2016}
+  year={2016},
+  langid      = {english}
 }
 
 @article{wang2015dueling,
   title={Dueling network architectures for deep reinforcement learning},
   author={Wang, Ziyu and Schaul, Tom and Hessel, Matteo and van Hasselt, Hado and Lanctot, Marc and de Freitas, Nando},
   journal={arXiv preprint arXiv:1511.06581},
-  year={2015}
+  year={2015},
+  langid      = {english}
 }
 
 @article{hausknecht2015deep,
   title={Deep recurrent q-learning for partially observable mdps},
   author={Hausknecht, Matthew and Stone, Peter},
   journal={arXiv preprint arXiv:1507.06527},
-  year={2015}
+  year={2015},
+  langid      = {english}
 }
 
 @article{lample2016playing,
   title={Playing FPS games with deep reinforcement learning},
   author={Lample, Guillaume and Chaplot, Devendra Singh},
   journal={arXiv preprint arXiv:1609.05521},
-  year={2016}
+  year={2016},
+  langid      = {english}
 }
 
 @article{tampuu2017multiagent,
@@ -267,7 +289,8 @@
   number={4},
   pages={e0172395},
   year={2017},
-  publisher={Public Library of Science}
+  publisher={Public Library of Science},
+  langid      = {english}
 }
 
 @inproceedings{foerster2016learning,
@@ -275,14 +298,16 @@
   author={Foerster, Jakob and Assael, Yannis M and de Freitas, Nando and Whiteson, Shimon},
   booktitle={Advances in Neural Information Processing Systems},
   pages={2137--2145},
-  year={2016}
+  year={2016},
+  langid      = {english}
 }
 
 @article{jorge2016learning,
   title={Learning to Play Guess Who? and Inventing a Grounded Language as a Consequence},
   author={Jorge, Emilio and K{\aa}geb{\"a}ck, Mikael and Gustavsson, Emil},
   journal={arXiv preprint arXiv:1611.03218},
-  year={2016}
+  year={2016},
+  langid      = {english}
 }
 
 @article{hochreiter1997long,
@@ -293,7 +318,8 @@
   number={8},
   pages={1735--1780},
   year={1997},
-  publisher={MIT Press}
+  publisher={MIT Press},
+  langid      = {english}
 }
 \end{filecontents}
 %% Конец
@@ -318,6 +344,7 @@
 \finishdate{31}{мая}{2017}
 %% Дата защиты. Можно не указывать, тогда надо будет заполнить от руки.
 %% \defencedate{15}{июня}{2015}
+\secretary{Павлова О.Н.}
 
 \addconsultant{Вяткин В.В.}{д. т. н., Luleå University of Technology}
 
@@ -486,6 +513,8 @@ Q-routing, но использующий нейронную сеть в каче
 конвейеров. Будут приведены результаты работы в условиях неравномерной
 нагрузки на сеть (или конвейерную систему) и изменения топологии сети. Также
 будет проведено сравнение с существующими алгоритмами маршрутизации.
+
+\startrelatedwork
 
 %% Начало содержательной части.
 \chapter{Обзор предметной области}
@@ -950,6 +979,8 @@ Doom\cite{lample2016playing}.
 подкреплением и были намечен подход к ее решению. Также был проведен обзор
 современных методов глубокого обучения с подкреплением, в том числе в
 мультиагентной среде.
+
+\finishrelatedwork
 
 \chapter{Описание разработанного алгоритма}
 
