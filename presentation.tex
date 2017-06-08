@@ -17,7 +17,7 @@
 
 \documentclass{beamer}
 
-\mode<presentation> {
+%% \mode<presentation> {
 
 % The Beamer class comes with a number of default slide themes
 % which change the colors and layouts of slides. Below this is a list
@@ -41,15 +41,15 @@
 %\usetheme{JuanLesPins}
 %\usetheme{Luebeck}
 \usetheme{Madrid}
-%\usetheme{Malmoe}
+%% \usetheme{Malmoe}
 %\usetheme{Marburg}
 %\usetheme{Montpellier}
-%\usetheme{PaloAlto}
+%% \usetheme{PaloAlto}
 %\usetheme{Pittsburgh}
 %\usetheme{Rochester}
 %\usetheme{Singapore}
 %\usetheme{Szeged}
-%\usetheme{Warsaw}
+%% \usetheme{Warsaw}
 
 % As well as themes, the Beamer class has a number of color themes
 % for any slide theme. Uncomment each of these in turn to see how it
@@ -71,10 +71,10 @@
 %\usecolortheme{wolverine}
 
 %\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+%% \setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
 
-%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
-}
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+%% }
 
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -82,6 +82,7 @@
 \usepackage[style=authoryear]{biblatex} 
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{appendixnumberbeamer}
 
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\argmax}{argmax}
@@ -127,6 +128,7 @@
   \item Транспортная логистика
   \item Управление конвейерными системами
   \item Автоматическое управление городским трафиком
+  \item ...
   \end{itemize}
 \end{frame}
 
@@ -156,24 +158,25 @@
 %------------------------------------------------
 
 \begin{frame}
-  \frametitle{Проблемы}
+  \frametitle{Цель работы}
   \begin{itemize}
   \item Примерно все алгоритмы маршрутизации заточены под компьютерные сети
   \item В других задачах существуют свои, более сложные условия
     \begin{itemize}
     \item Скорую нужно пропустить сквозь пробку, а обычный автомобиль --- нет
-    \item Чемоданы бизнес-класса хочется доставить первыми
+    \item Хочется минимизировать энергопотребление конвейеров
     \item ...
     \end{itemize}
+  \item Задача: построить алгоритм, способный адаптироваться под гетерогенные условия
   \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}
-  \frametitle{Задача}
-  \center{Построить алгоритм, способный адаптироваться под гетерогенные условия}
-\end{frame}
+%% \begin{frame}
+%%   \frametitle{Задача}
+%%   \center{Построить алгоритм, способный адаптироваться под гетерогенные условия}
+%% \end{frame}
 
 %------------------------------------------------
 
@@ -183,6 +186,11 @@
   \item Обучение с подкреплением
   \item Нейросети в качестве обучающихся агентов
   \item Q-routing (Boyan \& Littman, 1994)
+    \begin{itemize}
+    \item Не получил широкого распространения в компьютерных сетях (использует
+      слишком много служебных пакетов)
+    \item В других задачах (трафик, конвейеры) это не является проблемой.
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -215,7 +223,7 @@
   \frametitle{Базовая архитектура нейросети}
   Вход нейросети $o = (d, n, y_1 ... y_n, o')$, где:
   \begin{itemize}
-  \item $d$ --- узел назначения, $s$ --- текущий узел, $y_1 ... y_n$ --- номера
+  \item $d$ --- узел назначения, $n$ --- текущий узел, $y_1 ... y_n$ --- номера
     соседей, $o'$ --- любая дополнительная информация
   \item Выходы нейросети $a_1 ... a_n$ --- оценки $Q(o, a)$ для всех узлов сети
     ($-\infty$ для узлов, не являющихся соседями)
@@ -266,11 +274,6 @@
 \end{frame}
 
 %---------------------------------------------------
-
-\begin{frame}
-  \frametitle{Проблема нестационарности}
-  \includegraphics[width=\textwidth]{non-convergence}
-\end{frame}
 
 %---------------------------------------------------
 
@@ -418,10 +421,10 @@
   \frametitle{Неравномерный поток до выходных вершин: сравнение архитектур нейросетей}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time-nns}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time-nns-tall}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy-nns}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy-nns-tall}
     \end{column}
   \end{columns}
 \end{frame}
@@ -432,10 +435,10 @@
   \frametitle{Неравномерный поток до выходных вершин: сравнение c link-state и Q-routing}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time-tall}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy-tall}
     \end{column}
   \end{columns}
 \end{frame}
@@ -446,10 +449,10 @@
   \frametitle{Плавное повышение нагрузки: $\alpha = 1$}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-a1-time}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a1-time-tall}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-a1-energy}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a1-energy-tall}
     \end{column}
   \end{columns}
 \end{frame}
@@ -460,10 +463,10 @@
   \frametitle{Плавное повышение нагрузки: $\alpha = 0.6$}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-a06-time}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a06-time-tall}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{experiment-conveyors-a06-energy}
+      \includegraphics[width=\textwidth]{experiment-conveyors-a06-energy-tall}
     \end{column}
   \end{columns}
 \end{frame}
@@ -471,9 +474,99 @@
 %-------------------------------------------------------
 
 \begin{frame}
+  \frametitle{Итоги}
+  \begin{itemize}
+    \item Разработан алгоритм маршрутизации на основе мультиагентного обучения
+      нейросетей с подкреплением -- \textit{DQN-routing}
+    \item Сравнены три архитектуры нейросетей
+    \item Алгоритм показал лучшее качество маршрутизации во время экспериментов
+      по сравнению с link-state алгоритмом (доминирующее семейство алгоритмов в
+      сетевом роутинге) и алгоритмом Q-routing (табличное обучение с
+      подкреплением)
+    \item Алгоритм продемонстрировал способность эффективной работы в условиях
+      модели конвейерной системы с учетом энергопотребления.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \begin{center}
     {\Huge Спасибо за внимание!}
   \end{center}
+\end{frame}
+
+%-------------------------------------------------------
+\appendix
+
+\begin{frame}
+  \frametitle{Иллюстрация несходимости алгоритма к оптимуму без предобучения}
+  \includegraphics[width=\textwidth]{non-convergence}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение алгоритмов оптимизации: скорость предобучения}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-optimizers-pretrain-tall}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-optimizers-pretrain-tanh-tall}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение алгоритмов оптимизации и функций активации: скорость предобучения}
+  \includegraphics[width=\textwidth]{experiment-optimizers-pretrain-adam-vs-rmsprop}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение RMSProp и Adam в модели компьютерной сети}
+  \includegraphics[width=\textwidth]{experiment-adam-failure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение фукнций активации c RMSProp в модели компьютерной сети}
+  \includegraphics[width=\textwidth]{experiment-activations-launch}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение различных конфигураций feed-forward нейросети по
+    качеству предобучения}
+  \includegraphics[width=\textwidth]{experiment-layers-pretrain}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение различных конфигураций feed-forward нейросети при работе
+    в имитационной модели}
+  \includegraphics[width=\textwidth]{experiment-layers-launch}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Влияние softmax-стратегии на работу алгоритма}
+  \includegraphics[width=\textwidth]{experiment-softmax-effect}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Влияние различных видов experience replay на работу алгоритма}
+  \includegraphics[width=\textwidth]{experiments-xp-variants}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Влияние включения матрицы смежности в наблюдаемое состояние}
+  \includegraphics[width=\textwidth]{experiment-with-without-amatrix}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Влияние включения информации о состоянии соседних конвейеров в
+    наблюдаемое состояние}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-time-no-ws-tall}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{experiment-conveyors-en1-energy-no-ws-tall}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document} 

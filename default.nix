@@ -26,8 +26,10 @@ with import <nixpkgs> {}; {
           was
           filecontents
 	  cm-super
-          subfigure;
+          subfigure
+          appendixnumberbeamer;
       })
+      pdftk
       biber
       graphviz
     ];
