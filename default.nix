@@ -30,6 +30,7 @@ with import <nixpkgs> {}; {
           appendixnumberbeamer;
       })
       pdftk
+      ghostscript
       biber
       graphviz
     ];
